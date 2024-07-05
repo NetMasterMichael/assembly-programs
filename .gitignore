@@ -1,0 +1,5 @@
+# Ignore object files
+programs/*.o
+
+# Ignore binary executables (no file extension)
+programs/*
