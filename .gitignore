@@ -1,5 +1,8 @@
-# Ignore object files
-programs/*.o
+# Ignore all files (i.e. extensionless executable files and .o object files)
+*
 
-# Ignore binary executables (no file extension)
-programs/*
+# Include directories
+!*/
+
+# Don't ignore .asm files
+!*.asm
