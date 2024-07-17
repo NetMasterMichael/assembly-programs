@@ -1,30 +1,32 @@
 global _start
 
 section .data
-  counter db '0', 0xA 
-  lim dw 9
+  counter db '0', 0xA ; ascii character to print, with a new line
+  lim dw 9            ; number of times the program should loop
 
 section .text
 _start:
 loop:
-  mov eax, 4
-  mov ebx, 1
-  mov ecx, counter
-  mov edx, 2
-  int 0x80
+  mov eax, 4          ; sys_write syscall
+  mov ebx, 1          ; stdout
+  mov ecx, counter    ; pointer to counter
+  mov edx, 2          ; write two characters of counter
+  int 0x80            ; make syscall
 
-  mov al, [lim]
-  cmp al, 0
-  je end
-  mov al, [counter]
-  inc al
-  mov [counter], al
-  mov al, [lim]
-  dec al
-  mov [lim], al
-  jmp loop
+  mov al, [lim]       ; move value at address lim  into al
+  cmp al, 0           ; is lim 0?
+  je end              ; if yes, jump to end and terminate, otherwise continue
+
+  mov al, [counter]   ; move value at address counter into al
+  inc al              ; add 1 to al
+  mov [counter], al   ; move al to value at address counter
+
+  mov al, [lim]       ; move value at address lim into al
+  dec al              ; subtract 1 from al
+  mov [lim], al       ; move al to value at address lim
+  jmp loop            ; repeat the loop
 
 end:
-  mov eax, 1
-  mov ebx, 0
-  int 0x80
+  mov eax, 1          ; sys_exit syscall
+  mov ebx, 0          ; exit code 0 (success)
+  int 0x80            ; make syscall
