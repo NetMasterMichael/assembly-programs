@@ -1,8 +1,8 @@
 global _start
 
 section .data
-  numA db 12     ; number A, edit as you wish
-  numB db 12     ; number B, edit as you wish
+  numA dd 8823492     ; number A, 32 bits. Edit as you wish
+  numB dd 8823492     ; number B, 32 bits. Edit as you wish
 
   ; not recommended to edit below this point
   greater_than db "Number A is greater than number B", 0xA
@@ -14,8 +14,8 @@ section .data
 
 section .text
 _start:
-  mov al, [numA]              ; move numA into al
-  cmp al, [numB]              ; compare numA to numB
+  mov eax, [numA]              ; move numA into al
+  cmp eax, [numB]              ; compare numA to numB
   jg greater                  ; if numB is greater than value in al, jump to greater
   jl less                     ; if numB is less than value in al, jump to less
   je equal                    ; if numB is equal to value in al, jump to equal (default)
