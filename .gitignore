@@ -6,3 +6,6 @@
 
 # Don't ignore .asm files
 !*.asm
+
+# Don't ignore markdown files
+!*.md
