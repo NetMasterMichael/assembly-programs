@@ -1,3 +1,9 @@
+;
+;  File:    lt-gt-eq-numbers.asm
+;  Author:  Michael Goodwin (NetMasterMichael)
+;  Date:    2024-07-16
+;
+
 global _start
 
 section .data
@@ -14,8 +20,8 @@ section .data
 
 section .text
 _start:
-  mov eax, [numA]              ; move numA into al
-  cmp eax, [numB]              ; compare numA to numB
+  mov eax, [numA]             ; move numA into al
+  cmp eax, [numB]             ; compare numA to numB
   jg greater                  ; if numB is greater than value in al, jump to greater
   jl less                     ; if numB is less than value in al, jump to less
   je equal                    ; if numB is equal to value in al, jump to equal (default)

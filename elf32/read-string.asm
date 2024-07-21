@@ -1,3 +1,9 @@
+;
+;  File:    read-string.asm
+;  Author:  Michael Goodwin (NetMasterMichael)
+;  Date:    2024-07-17
+;
+
 global _start
 
 section .bss

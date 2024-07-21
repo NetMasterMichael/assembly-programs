@@ -1,3 +1,9 @@
+;
+;  File:    reverse-string.asm
+;  Author:  Michael Goodwin (NetMasterMichael)
+;  Date:    2024-07-20
+;
+
 global _start
 
 section .bss
