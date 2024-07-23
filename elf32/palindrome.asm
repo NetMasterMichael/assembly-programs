@@ -10,7 +10,7 @@ section .bss
   input resb 255
 
 section .data
-  input_msg db "Please enter a string: "
+  input_msg db "Please enter a string (case sensitive): "
   inp_len equ $ - input_msg
   is_pal_msg db " is a palindrome.", 0xA
   is_pal_len equ $ - is_pal_msg
@@ -45,11 +45,9 @@ _start:
   add edi, eax
   dec edi
 palindrome_check:
-  xor ebx, ebx
-  xor ecx, ecx
   mov bl, [esi]
-  mov cl, [edi]
-  cmp bl, cl
+  mov bh, [edi]
+  cmp bl, bh
   jne is_not_palindrome
   cmp eax, 1
   je is_palindrome
