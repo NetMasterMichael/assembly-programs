@@ -5,7 +5,8 @@
 ;
 
 ;  Differences between palindrome and palindrome-v2:
-;  Spaces are ignored
+;  - Spaces are ignored
+;  - Not case sensitive
 
 global _start
 
@@ -14,7 +15,7 @@ section .bss
   sanitised_input resb 255
 
 section .data
-  input_msg db "Please enter a string (case sensitive): "
+  input_msg db "Please enter a string: "
   inp_len equ $ - input_msg
   is_pal_msg db " is a palindrome.", 0xA
   is_pal_len equ $ - is_pal_msg
@@ -56,7 +57,7 @@ _start:
   mov ecx, eax               ; move length of input into ecx
 remove_spaces:
   cmp ecx, 0                 ; have all characters been checked?
-  je palindrome_check_start  ; if yes, jump to the start of checking if input is a palindrome
+  je convert_to_lowercase    ; if yes, jump to the start of converting sanitised_input to lowercase
   mov bl, [esi]              ; otherwise, mov char at address esi into bl
   cmp bl, 32                 ; is char a space?
   je remove_spaces_dec       ; if yes, skip copying bl (esi) to edi
@@ -66,6 +67,27 @@ remove_spaces_dec:
   inc esi                    ; increment esi address to move to the next character
   dec ecx                    ; decrement number of characters remaining to check
   jmp remove_spaces          ; jump to beginning of loop
+
+  ; convert sanitised_input to all lowercase, so that it isn't case sensitive
+  ; input is more likely to be lowercase than uppercase, so it's more efficient converting to lowercase than to uppercase
+convert_to_lowercase:
+  ; setup to convert to lowercase
+  mov esi, sanitised_input   ; move address of sanitised_input into esi
+  mov ecx, eax               ; copy eax (length of string) into ecx again
+convert_character:
+  mov bl, [esi]              ; copy value at address in esi to bl
+  cmp bl, 65                 ; compare bl and 65 (ASCII for 'A')
+  jl point_next_character    ; if less, skip character and check the next one
+  cmp bl, 90                 ; compare bl and 90 (ASCII for 'Z')
+  jg point_next_character    ; if greater, skip character and check the next one
+  add bl, 32                 ; character must be uppercase, add 32 to convert it to its lowercase equivalent
+  mov [esi], bl              ; copy lowercase character into value at address in esi register
+point_next_character:
+  inc esi                    ; increment esi to point to the next character
+  dec ecx                    ; decrement ecx (number of characters remaining to check)
+  cmp ecx, 0                 ; have all characters been checked?
+  je palindrome_check_start  ; if true, jump to checking if sanitised_input is a palindrome
+  jmp convert_character      ; otherwise, jump to convert_character and repeat process
 
   ; palindrome checking
 palindrome_check_start:
