@@ -65,6 +65,8 @@ Finally, you can now boot the USB drive and execute the program on bare metal. I
 3. Select your USB drive
 4. Watch the program execute! (again, it may behave unpredictably depending on your system)
 ## Future Idea: ISO Generation
-One idea I want to explore in the future is generating an ISO, so that a utility such as Rufus could be used to image a USB drive. Although I did get this partially working, I was not satisfied with the results, so I have excluded it from this readme. The biggest issue I encountered was that the program was not written to the first sector of the USB drive. This included the 0x55AA magic bytes at the end of the first of that mark a drive as bootable, so it actually didn't boot on any systems. Using the `dd` tool gets around this problem, since it writes the file byte-for-byte directly to the first sector of the drive.
+One idea I want to explore in the future is generating an ISO, so that a utility such as Rufus could be used to image a USB drive. Although I did get this partially working, I was not satisfied with the results, so I have excluded such instructions from this readme. 
+
+The biggest issue I encountered was that the program was not written to the first sector of the USB drive. This included the 0x55AA magic bytes at the end of the first sector that mark a drive as bootable to the BIOS. This meant that when a drive was imaged with the program inside an ISO file, my programs actually didn't boot/execute on any systems except for VMs. Using the `dd` tool works around this problem, since it writes the file byte-for-byte directly to the first sector of the drive.
 
 I may also explore writing my own ISO imaging tool, as the [El Torito Specification](https://pdos.csail.mit.edu/6.828/2014/readings/boot-cdrom.pdf) for the ISO 9660 format is surprisingly not too complex. That is a project for another day!

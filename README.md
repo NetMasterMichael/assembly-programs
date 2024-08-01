@@ -10,5 +10,6 @@ I have decided to take on the challenge to learn assembly for the following reas
 I hope that you may find something in here that intrigues you. I will be adding more files here over time as I learn more assembly.
 
 Instructions on assembling and linking each program from the source code is included in each folder.
+- bin folder: 16-bit (for now) assembly programs for execution on bare metal
 - elf32 folder: 32-bit assembly programs for Linux 🐧
 - More to come!
